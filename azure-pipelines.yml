@@ -21,10 +21,10 @@ jobs:
       versionSpec: '3.7.x'
       addToPath: true
 
-  - script: sudo python -m pip install setuptools
+  - script: python3 -m pip install setuptools
     displayName: 'Install base dependencies'
 
-  - script: sudo python -m pip install pipenv flake8-formatter-junit-xml
+  - script: python3 -m pip install pipenv flake8-formatter-junit-xml
     displayName: 'Install Pipenv'
 
   - script: pipenv install --dev
