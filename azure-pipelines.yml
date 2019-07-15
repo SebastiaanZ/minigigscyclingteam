@@ -24,15 +24,11 @@ jobs:
   - script: python3 -m pip install setuptools
     displayName: 'Install base dependencies'
 
-  - script: python3 -m pip install pipenv flake8-formatter-junit-xml
-    displayName: 'Install Pipenv'
+  - script: python3 -m pip install pipenv && pipenv install --dev --system && python3 -m pip install flake8-formatter-junit-xml
+    displayName: 'Install Project Environment'
 
-  - script: pipenv install --dev
-    displayName: 'Install project dependencies'
-
-  - script: pipenv run lint
+  - script: python3 -m flake8 --format junit-xml --output-file test-lint.xml
     displayName: 'Lint the project'
-
 
   - task: PublishTestResults@2
     condition: succeededOrFailed()
