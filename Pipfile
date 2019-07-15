@@ -13,4 +13,4 @@ django = "*"
 python_version = "3.7"
 
 [scripts]
-start = "python website/manage.py runserver"
+start = "python manage.py runserver"
