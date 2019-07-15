@@ -21,11 +21,18 @@ jobs:
       versionSpec: '3.7.x'
       addToPath: true
 
-  - script: python3 -m pip install flake8 && python3 -m pip install flake8-formatter-junit-xml
-    displayName: 'Install flake8'
+  - script: sudo python -m pip install setuptools
+    displayName: 'Install base dependencies'
 
-  - script: python3 -m flake8 --format junit-xml --output-file test-lint.xml
-    displayName: 'Running flake8 linter'
+  - script: sudo python -m pip install pipenv flake8-formatter-junit-xml
+    displayName: 'Install Pipenv'
+
+  - script: pipenv install --dev
+    displayName: 'Install project dependencies'
+
+  - script: pipenv run lint
+    displayName: 'Lint the project'
+
 
   - task: PublishTestResults@2
     condition: succeededOrFailed()
