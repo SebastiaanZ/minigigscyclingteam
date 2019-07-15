@@ -1,0 +1,34 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+jobs:
+- job: lint
+  displayName: 'Flake8 linting of Python code'
+
+  pool:
+    vmImage: 'Ubuntu 16.04'
+
+  variables:
+    PIP_CACHE_DIR: ".cache/pip"
+    PIP_SRC: ".cache/src"
+
+  steps:
+  - task: UsePythonVersion@0
+    displayName: 'Set Python version'
+    inputs:
+      versionSpec: '3.7.x'
+      addToPath: true
+
+  - script: python3 -m pip install flake8 && python3 -m pip install flake8-formatter-junit-xml
+    displayName: 'Install flake8'
+
+  - script: python3 -m flake8 --format junit-xml --output-file test-lint.xml
+    displayName: 'Running flake8 linter'
+
+  - task: PublishTestResults@2
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFiles: '**/test-*.xml'
+      testRunTitle: 'Site-Django Lint Results'
