@@ -5,8 +5,9 @@ verify_ssl = true
 
 [packages]
 django = "*"
+"django-sekizai" = "*"
 "django-simple-bulma" = "*"
-psycopg2-binary = "*"
+"psycopg2-binary" = "*"
 
 [dev-packages]
 "flake8" = "*"
