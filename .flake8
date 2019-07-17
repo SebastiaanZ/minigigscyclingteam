@@ -14,3 +14,4 @@ ignore=
 exclude=
     manage.py,
     */migrations/*
+    *tests*
