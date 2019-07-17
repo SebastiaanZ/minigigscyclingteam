@@ -5,6 +5,7 @@ verify_ssl = true
 
 [packages]
 django = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 "flake8" = "*"
@@ -13,9 +14,13 @@ django = "*"
 "flake8-tidy-imports" = "*"
 "flake8-todo" = "*"
 "flake8-string-format" = "*"
-flake8-docstrings = "*"
-pydocstyle = "<4.0.0"
-pre-commit = "*"
+"flake8-docstrings" = "*"
+"flake8-formatter-junit-xml" = "*"
+"pep8-naming" = "*"
+"pydocstyle" = "<4.0.0"
+"pre-commit" = "*"
+"coverage" = "*"
+"unittest-xml-reporting" = "*"
 
 [requires]
 python_version = "3.7"

@@ -27,7 +27,7 @@ jobs:
   - script: python3 -m pip install pipenv && pipenv install --dev --system && python3 -m pip install flake8-formatter-junit-xml
     displayName: 'Install Project Environment'
 
-  - script: python3 -m flake8 --format junit-xml --output-file test-lint.xml
+  - script: pipenv run flake8 --format junit-xml --output-file test-lint.xml
     displayName: 'Lint the project'
 
   - task: PublishTestResults@2
