@@ -5,7 +5,7 @@
 
 jobs:
 - job: lint
-  displayName: 'Flake8 linting of Python code'
+  displayName: 'flake8 linting'
 
   pool:
     vmImage: 'Ubuntu 16.04'
