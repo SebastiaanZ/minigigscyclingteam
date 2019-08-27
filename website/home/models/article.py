@@ -6,15 +6,49 @@ from django.db import models
 class Article(models.Model):
     """Main article model for news articles appearing on the front page."""
 
-    title = models.CharField(max_length=256)
-    author = models.ForeignKey(get_user_model(), on_delete=models.PROTECT)
-    content = models.TextField(verbose_name="Main content of the article")
-    pubdate = models.DateTimeField(verbose_name="Publication date", auto_now_add=True)
-    last_edit = models.DateTimeField(verbose_name="Last edited", auto_now=True)
+    # Content-related fields
+    title = models.CharField(
+        max_length=256,
+    )
+    author = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.PROTECT,
+    )
+    content = models.TextField(
+        verbose_name="Main content of the article",
+    )
+
+    # Date-related field
+    creation_date = models.DateTimeField(
+        verbose_name="Creation date",
+        auto_now_add=True,
+    )
+    pubdate = models.DateTimeField(
+        verbose_name="Publication date",
+        null=True,
+    )
+    last_edit = models.DateTimeField(
+        verbose_name="Last edited",
+        auto_now=True,
+    )
+
+    # Status-related fields
+    is_published = models.BooleanField(
+        verbose_name="Has this article been published?",
+        default=False,
+    )
 
     def __str__(self):
         """Returns a string representation of the article."""
         if len(self.title) > 50:
-            return f"{self.author} - {self.title[:47]} ({self.pubdate})"
+            return f"{self.author} - {self.title[:47]} ({self.publication_status})"
         else:
-            return f"{self.author} - {self.title} ({self.pubdate})"
+            return f"{self.author} - {self.title} ({self.publication_status})"
+
+    @property
+    def publication_status(self):
+        """Returns the publication status as a string."""
+        if self.is_published:
+            return "published"
+        else:
+            return "draft"
