@@ -33,7 +33,8 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-
+    'website.home',
+    'website.users',
 
     # Plugins
     'django_simple_bulma',
@@ -83,14 +84,21 @@ WSGI_APPLICATION = 'website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+if os.getenv("IN_DOCKER", 0):
+    database_host = 'postgres'
+    database_port = '5432'
+else:
+    database_host = '127.0.0.1'
+    database_port = '7777'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'minigigs',
         'USER': 'minigigs',
         'PASSWORD': 'verysecurepassword',
-        'HOST': 'postgres',
-        'PORT': '5432',
+        'HOST': database_host,
+        'PORT': database_port,
     }
 }
 
@@ -119,7 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Amsterdam'
 
 USE_I18N = True
 
@@ -137,6 +145,8 @@ STATIC_ROOT = '/var/www/static'
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-
     'django_simple_bulma.finders.SimpleBulmaFinder',
 ]
+
+# Custom user model
+AUTH_USER_MODEL = "users.User"

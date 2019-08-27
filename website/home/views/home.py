@@ -1,6 +1,7 @@
+"""Views for landing page."""
 from django.http import HttpResponse
 
 
 def index(request):
     """Index dummy view."""
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return HttpResponse("Hello, world.")
