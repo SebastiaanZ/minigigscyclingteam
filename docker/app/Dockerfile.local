@@ -31,9 +31,9 @@ COPY Pipfile Pipfile.lock /app/
 # Pip install the stuff we'll need.
 RUN rm -r /opt/bitnami/python/lib/python3.*/site-packages/setuptools* && \
     pip install --no-cache-dir -U setuptools
-RUN python3 -m pip install pipenv \
-    && python3 -m pipenv install --system --deploy \
-    && pip install uwsgi==2.0.18
+RUN python3 -m pip install pipenv
+RUN echo $(python3 -m pipenv install --system --deploy)
+RUN pip install uwsgi==2.0.18
 
 # Copy everything into the docker environment.
 COPY . .

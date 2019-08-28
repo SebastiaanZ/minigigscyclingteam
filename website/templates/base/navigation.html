@@ -1,0 +1,43 @@
+{% load static %}
+
+<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a id="navbar-banner" class="navbar-item" href="/">
+            <img src="{% static "images/logos/minigigs_ct_logo.svg" %}" alt="Minigigs Cycling Team logo">
+        </a>
+
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div class="navbar-menu" id="navbar-menu">
+        <div class="navbar-end">
+            <a class="navbar-item" href="{% url "home:index" %}">
+                <span class="icon is-size-4 is-medium is-hidden-desktop"><i class="fal fa-newspaper"></i>&nbsp; </span>
+                Nieuws
+            </a>
+
+            <a class="navbar-item">
+                <span class="icon is-size-4 is-medium is-hidden-desktop"><i class="fal fa-calendar-alt"></i>&nbsp; </span>
+                Kalender
+            </a>
+
+            <a class="navbar-item">
+                <span class="icon is-size-4 is-medium is-hidden-desktop"><i class="fal fa-envelope"></i>&nbsp; </span>
+                Contact
+            </a>
+
+            <a class="navbar-item" href="https://www.strava.com/clubs/minigigscyclingteam" target="_blank">
+                <span class="icon is-size-4 is-medium"><i class="fab fa-strava"></i>&nbsp; </span>
+                Strava
+            </a>
+            <a class="navbar-item" href="https://www.youtube.com/channel/UCps6twYjxNuUkEZvRjRewTQ" target="_blank">
+                <span class="icon is-size-4 is-medium"><i class="fab fa-youtube"></i>&nbsp; </span>
+                YouTube
+            </a>
+        </div>
+    </div>
+</nav>

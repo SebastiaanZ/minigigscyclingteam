@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -125,7 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'nl'
 
 TIME_ZONE = 'Europe/Amsterdam'
 
@@ -140,13 +141,26 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/var/www/static'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'website', 'static')]
+STATIC_ROOT = os.getenv('STATIC_ROOT', '/app/staticfiles')
 
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'django_simple_bulma.finders.SimpleBulmaFinder',
 ]
+
+BULMA_SETTINGS = {
+    "variables": {
+        "green": "#21c65c",  # Accessibility: Better contrast with the light text
+        "primary": '#008cb6',
+        "link": "$primary",
+
+        "dimensions": "16 24 32 48 64 96 128 256 512",  # Possible image dimensions
+        "navbar-height": "5rem",
+        "navbar-item-img-max-height": "2.5rem",
+    }
+}
 
 # Custom user model
 AUTH_USER_MODEL = "users.User"

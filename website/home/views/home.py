@@ -1,7 +1,12 @@
 """Views for landing page."""
-from django.http import HttpResponse
+from django.views.generic import ListView
+
+from ..models import Article
 
 
-def index(request):
-    """Index dummy view."""
-    return HttpResponse("Hello, world.")
+class Home(ListView):
+    """The homepage view that displays a list of most recent articles."""
+
+    model = Article
+    template_name = "home/home.html"
+    context_object_name = 'articles'

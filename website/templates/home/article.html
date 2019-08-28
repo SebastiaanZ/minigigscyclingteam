@@ -1,0 +1,98 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ article.title }}
+{% endblock %}
+
+{% block content %}
+    {% include 'base/navigation.html' %}
+    <section class="hero is-primary is-small">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-offset-1">
+                        <h1 class="title is-size-4-mobile has-small-margin">
+                            {{ article.title }}
+                        </h1>
+                        <h2 class="title">
+                            <div class="media">
+                                <div class="media-left">
+                                    <figure class="image is-48x48">
+                                        <img src="{% static "images/photos/miranda_square.jpg" %}" alt="Roemer"
+                                             class="is-rounded">
+                                    </figure>
+                                </div>
+                                <div class="media-content">
+                                    <p class="is-size-6-mobile is-size-5-desktop">
+                                        {{ article.author }}
+                                    </p>
+                                    <p class="subtitle is-7">
+                                        <time datetime="{% now "Y-m-d" %}">
+                                            <i class="fal fa-calendar"></i> {{ article.pubdate | date:"d F Y - H:i"}}
+                                        </time>
+                                    </p>
+
+                                </div>
+
+                            </div>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-foot">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-size-3 is-offset-1">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ "https://www.minigigscyclingteam.nl" | urlencode }}{{ request.path | urlencode }}" target="_blank">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://twitter.com/home?status={{ "https://www.minigigscyclingteam.nl" | urlencode }}{{ request.path | urlencode }}" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="mailto:info@example.com?&subject=&body={{ "https://www.minigigscyclingteam.nl" | urlencode }}{{ request.path | urlencode }}" target="_blank">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <div class="container is-hidden-tablet">
+        <figure class="image">
+            <img src="{% static "images/photos/roemer_fiets.jpeg" %}" alt="Roemer" class="cover-image">
+        </figure>
+    </div>
+    <article class="section">
+        <div class="container is-spaced">
+            <div class="columns">
+                <div class="column is-offset-1-desktop is-5-desktop is-6-tablet is-offset-1-tablet">
+                    {{ article.content | linebreaks }}
+                </div>
+                <div class="column is-4 is-hidden-mobile">
+                    <div class="box">
+                        <figure class="image">
+                            <a class="is-primary is-large modal-button" data-target="modal-cover-image">
+                                <img src="{% static "images/photos/roemer_fiets.jpeg" %}" alt="Roemer" class="cover-image">
+                            </a>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+    <div id="modal-cover-image" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="box">
+                <p class="image">
+                    <img src="{% static "images/photos/roemer_fiets.jpeg" %}" alt="Roemer" class="cover-image">
+                </p>
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+{% endblock %}

@@ -1,3 +1,4 @@
-from .home import index
+from .home import Home
+from .nieuws import News
 
-__all__ = [index]
+__all__ = [Home, News]

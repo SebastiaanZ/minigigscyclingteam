@@ -1,4 +1,6 @@
 """Django database models for news articles."""
+import re
+
 from django.contrib.auth import get_user_model
 from django.db import models
 
@@ -52,3 +54,10 @@ class Article(models.Model):
             return "published"
         else:
             return "draft"
+
+    @property
+    def slug(self) -> str:
+        """Returns the url of the article for linking purposes."""
+        title = self.title.lower().strip().replace(" ", "-")
+        slug = "".join(re.findall(r"[\w-]", title))
+        return slug
