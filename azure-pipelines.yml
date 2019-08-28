@@ -37,8 +37,8 @@ jobs:
       testRunTitle: 'Site-Django Lint Results'
 
 - job: coverage_test
-  displayName: 'Test Job'
-  dependsOn: python_lint
+  displayName: 'Coverage Unittests'
+  dependsOn: lint
   pool:
     vmImage: 'Ubuntu 16.04'
 
@@ -80,4 +80,4 @@ jobs:
     - task: PublishTestResults@2
       inputs:
         testResultsFiles: "**/TEST-*.xml"
-        testRunTitle: 'Site-Django Test Results'
+        testRunTitle: 'Coverage Test Results'
