@@ -12,6 +12,15 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+import environ
+
+
+env = environ.Env(
+    DEBUG=(bool, False)
+)
+
+DEBUG = env("DEBUG")
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -21,9 +30,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'suitable-for-development-only'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = [
     'minigigscyclingteam.local'
@@ -85,22 +91,8 @@ WSGI_APPLICATION = 'website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-if os.getenv("IN_DOCKER", 0):
-    database_host = 'postgres'
-    database_port = '5432'
-else:
-    database_host = '127.0.0.1'
-    database_port = '7777'
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'minigigs',
-        'USER': 'minigigs',
-        'PASSWORD': 'verysecurepassword',
-        'HOST': database_host,
-        'PORT': database_port,
-    }
+    'default': env.db()
 }
 
 

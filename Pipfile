@@ -9,6 +9,7 @@ django = "*"
 "django-simple-bulma" = "*"
 "psycopg2-binary" = "*"
 whitenoise = "*"
+django-environ = "*"
 
 [dev-packages]
 "flake8" = "*"

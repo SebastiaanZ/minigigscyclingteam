@@ -31,3 +31,7 @@ article p {
 .has-small-margin {
     margin-bottom: .75rem !important;
 }
+
+.modal-content {
+    width: 750px !important;
+}
