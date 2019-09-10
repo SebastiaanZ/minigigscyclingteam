@@ -16,7 +16,8 @@ import environ
 
 
 env = environ.Env(
-    DEBUG=(bool, False)
+    DEBUG=(bool, False),
+    SECRET_KEY=(str, 'suitable-for-development-only'),
 )
 
 DEBUG = env("DEBUG")
@@ -29,13 +30,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'suitable-for-development-only'
+SECRET_KEY = env('SECRET_KEY')
 
-ALLOWED_HOSTS = [
-    'minigigscyclingteam.local',
-    'minigigscyclingteam.nl',
-]
-
+if DEBUG:
+    ALLOWED_HOSTS = [
+        'minigigscyclingteam.local',
+    ]
+else:
+    ALLOWED_HOSTS = [
+        'www.minigigscyclingteam.nl',
+        'minigigscyclingteam.nl',
+    ]
 
 # Application definition
 
