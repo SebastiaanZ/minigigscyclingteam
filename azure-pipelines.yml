@@ -81,3 +81,24 @@ jobs:
       inputs:
         testResultsFiles: "**/TEST-*.xml"
         testRunTitle: 'Coverage Test Results'
+
+- job: docker
+  displayName: 'Build & Push Job'
+  dependsOn: coverage_test
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  pool:
+    vmImage: ubuntu-16.04
+
+  steps:
+    - task: Docker@1
+      displayName: Login to Docker Hub
+
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'minigigscyclingteam-website'
+        command: 'login'
+
+    - script: |
+        docker build -t minigigscyclingteam/website:latest -f docker/app/Dockerfile .
+        docker push minigigscyclingteam/website:latest
+      displayName: 'Build & Push Docker Image'
