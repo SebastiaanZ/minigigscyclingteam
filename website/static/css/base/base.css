@@ -35,3 +35,24 @@ article p {
 .modal-content {
     width: 750px !important;
 }
+
+.is-huge {
+    font-size: 10rem !important;
+}
+
+.no-pointer {
+    cursor: default;
+}
+
+ul.item-list {
+    list-style: initial;
+    padding-left: 1em;
+}
+
+.home-article:not(:last-child) {
+    margin-bottom: 1.5rem;
+}
+
+.home-article {
+    border-radius: 6px;
+}

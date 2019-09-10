@@ -114,6 +114,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Login-related settings
+
+LOGIN_URL = '/gebruikers/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -147,6 +153,7 @@ BULMA_SETTINGS = {
         "green": "#21c65c",  # Accessibility: Better contrast with the light text
         "primary": '#008cb6',
         "link": "$primary",
+        "warning": "hsl(348, 100%, 61%)",
 
         "dimensions": "16 24 32 48 64 96 128 256 512",  # Possible image dimensions
         "navbar-height": "5rem",

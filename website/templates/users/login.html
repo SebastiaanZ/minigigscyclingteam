@@ -1,0 +1,70 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+{% include 'base/navigation.html' %}
+
+    <section class="section">
+        <div class="level">
+            <div class="level-item is-huge">
+                <i class="fas fa-user-lock has-text-primary"></i>
+            </div>
+
+        </div>
+        <div class="columns is-spaced is-centered">
+            <div class="column is-3">
+                    <div class="box">
+                {% if form.errors %}
+                    <div class="field">
+                        <label class="label has-text-primary">
+                            Deze combinatie van gebruikersnaam en wachtwoord is onjuist.
+                        </label>
+                    </div>
+                {% endif %}
+
+                {% if next %}
+                    {% if user.is_authenticated %}
+                    <div class="field">
+                        <label class="label has-text-primary">Uw account geeft geen toegang tot deze pagina.</label>
+                    </div>
+                    {% else %}
+                    <div class="field">
+                        <label class="label has-text-primary">Log in om deze pagina te bekijken.</label>
+                    </div>
+                    {% endif %}
+                {% endif %}
+
+                <form method="post" action="{% url 'users:login' %}">
+                {% csrf_token %}
+                <div class="field">
+                  <label class="label">{{ form.username.label_tag }}</label>
+                  <div class="control has-icons-left">
+                    {{ form.username }}
+                    <span class="icon is-small is-left has-text-primary">
+                      <i class="fas fa-user"></i>
+                    </span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">{{ form.password.label_tag }}</label>
+                  <div class="control has-icons-left has-icons-right">
+                    {{ form.password }}
+                    <span class="icon is-small is-left has-text-primary">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                  </div>
+                </div>
+                <div class="field">
+                    <input type="hidden" name="next" value="{{ next }}">
+                    <input type="submit" value="login" class="button is-primary is-fullwidth">
+                </div>
+                </form>
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+{% endblock %}

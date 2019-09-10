@@ -1,0 +1,34 @@
+<div class="tabs is-centered is-toggle is-toggle-rounded is-fullwidth">
+  <ul>
+    {% if step == 1 %}
+    <li class="is-active">
+    {% else %}
+    <li>
+    {% endif %}
+        <a class="no-pointer">
+            <span class="icon is-small"><i class="fas fa-pen" aria-hidden="true"></i></span>
+            <span>Stap 1: Artikel schrijven</span>
+        </a>
+    </li>
+    {% if step == 2 %}
+    <li class="is-active">
+    {% else %}
+    <li>
+    {% endif %}
+         <a class="no-pointer">
+            <span class="icon is-small"><i class="fas fa-images" aria-hidden="true"></i></span>
+            <span>Stap 2: Foto's toevoegen</span>
+        </a class="no-pointer">
+    </li>
+    {% if step == 3 %}
+    <li class="is-active">
+    {% else %}
+    <li>
+    {% endif %}
+        <a class="no-pointer">
+            <span class="icon is-small"><i class="fas fa-file-export"></i></span>
+            <span>Stap 3: Artikel publiceren</span>
+        </a>
+    </li>
+  </ul>
+</div>

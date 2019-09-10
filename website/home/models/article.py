@@ -10,6 +10,7 @@ class Article(models.Model):
 
     # Content-related fields
     title = models.CharField(
+        verbose_name="Titel",
         max_length=256,
     )
     author = models.ForeignKey(
@@ -17,7 +18,7 @@ class Article(models.Model):
         on_delete=models.PROTECT,
     )
     content = models.TextField(
-        verbose_name="Main content of the article",
+        verbose_name="Inhoud",
     )
 
     # Date-related field
