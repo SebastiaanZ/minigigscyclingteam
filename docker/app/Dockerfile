@@ -19,6 +19,8 @@ RUN apt-get update -y \
                 libc-dev \
                 libpq-dev \
                 git \
+                libpcre3 \
+                libpcre3-dev \
     && \
         apt-get clean \
     && \
@@ -43,6 +45,8 @@ COPY . .
 # Remove the prerequisites, dependency installation is now complete.
 RUN apt-get purge -y \
             gcc \
+            libpcre3 \
+            libpcre3-dev \
             libc-dev \
             libpq-dev
 
