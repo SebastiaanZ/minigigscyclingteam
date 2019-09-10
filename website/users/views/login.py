@@ -13,4 +13,5 @@ class LoginPage(LoginView):
 
 class LogoutPage(LogoutView):
     """The default logout view."""
+
     form = AuthForm

@@ -1,14 +1,14 @@
 """View that allows an authenticated user to create a new article."""
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import CreateView
 from django.shortcuts import reverse
-from django.http import Http404
+from django.views.generic.edit import CreateView
 
 from website.home.models import Article
 
 
 class CreateArticle(LoginRequiredMixin, CreateView):
     """Allows an authenticated user to submit a new article."""
+
     model = Article
     fields = ['title', 'content']
     template_name = 'authors/article.html'

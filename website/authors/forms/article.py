@@ -9,5 +9,6 @@ class NewArticleForm(ModelForm):
 
     class Meta:
         """Meta-information for the ModelForm."""
+
         model = Article
         fields = ["title", "content"]
