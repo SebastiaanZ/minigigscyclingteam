@@ -45,8 +45,6 @@ COPY . .
 # Remove the prerequisites, dependency installation is now complete.
 RUN apt-get purge -y \
             gcc \
-            libpcre3 \
-            libpcre3-dev \
             libc-dev \
             libpq-dev
 
