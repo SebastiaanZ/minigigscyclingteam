@@ -32,7 +32,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'suitable-for-development-only'
 
 ALLOWED_HOSTS = [
-    'minigigscyclingteam.local'
+    'minigigscyclingteam.local',
+    'minigigscyclingteam.nl',
 ]
 
 
