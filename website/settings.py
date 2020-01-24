@@ -14,7 +14,6 @@ import os
 
 import environ
 
-
 env = environ.Env(
     DEBUG=(bool, False),
     SECRET_KEY=(str, 'suitable-for-development-only'),
@@ -24,7 +23,6 @@ DEBUG = env("DEBUG")
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -93,14 +91,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'website.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
     'default': env.db()
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -126,7 +122,6 @@ LOGIN_URL = '/gebruikers/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -140,7 +135,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
@@ -153,6 +147,9 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'django_simple_bulma.finders.SimpleBulmaFinder',
 ]
+
+MEDIA_ROOT = os.getenv('MEDIA_ROOT', '/app/mediafiles')
+MEDIA_URL = '/media/'
 
 BULMA_SETTINGS = {
     "variables": {

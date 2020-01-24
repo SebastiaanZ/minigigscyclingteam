@@ -19,7 +19,7 @@
                             <div class="card-image">
                                 <figure class="image">
                                     <a href="{{ article_url }}">
-                                        <img src="{% static "images/photos/roemer_fiets.jpeg" %}" alt="Roemer" class="cover-image">
+                                        <img src="{{ article.image_url }}" alt="Cover Image" class="cover-image">
                                     </a>
                                 </figure>
                             </div>
@@ -40,7 +40,7 @@
                                         </p>
                                         <p class="subtitle is-7">
                                             <time datetime="{% now "Y-m-d" %}">
-                                                <i class="far fa-calendar"></i> {{ article.pubdate | date:"d F Y - H:i"}}
+                                                <i class="far fa-calendar"></i> {{ article.pubdate | date:"d F Y - H:i" }}
                                             </time>
                                         </p>
 
@@ -57,12 +57,6 @@
                     {% endfor %}
                 </div>
                 <div class="column is-hidden-mobile">
-                    <div class="box">
-                        <a href="http://minigigs.nl" target="_blank">
-                            <img src="{% static "images/logos/minigigs_fc_with_subtitle.svg" %}" alt="Minigigs logo">
-                        </a>
-                    </div>
-
                     <div class="box">
                         <a href="http://minigigs.nl" target="_blank">
                             <img src="{% static "images/logos/minigigs_fc_with_subtitle.svg" %}" alt="Minigigs logo">

@@ -1,6 +1,6 @@
 """This file tests the URL routes."""
-from django.test import TestCase
 from django.shortcuts import reverse
+from django.test import TestCase
 
 from website.users.models import User
 from ..models import Article
