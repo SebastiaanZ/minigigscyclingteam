@@ -1,0 +1,25 @@
+<table class="table is-narrow is-hoverable is-fullwidth edit-article">
+    <tbody>
+    {% if widget.is_initial %}
+        <tr>
+            <th>Huidige foto:</th>
+            <td>
+                <figure class="image">
+                    <img src="{{ widget.value.url }}" alt="Cover Image" class="current-cover-image">
+                </figure>
+            </td>
+        </tr>
+        {% if not widget.required %}
+            <tr>
+                <th><label for="{{ widget.checkbox_id }}">{{ widget.clear_checkbox_label }}</label></th>
+                <td><input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}"></td>
+            </tr>
+        {% endif %}
+    {% endif %}
+    <tr>
+        <th>{{ widget.input_text }}</th>
+        <td><input type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+        </td>
+    </tr>
+    </tbody>
+</table>
