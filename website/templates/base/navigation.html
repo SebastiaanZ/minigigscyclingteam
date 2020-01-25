@@ -56,6 +56,11 @@
                                     class="fas fa-user"></i></span>
                             <span>Bewerk profiel</span>
                         </a>
+                        <a class="navbar-item" href="{% url 'users:change-password' %}">
+                            <span class="icon is-size-6-desktop is-size-6-touch is-medium"><i
+                                    class="fas fa-user-lock"></i></span>
+                            <span>Wijzig wachtwoord</span>
+                        </a>
                         <hr class="navbar-divider">
                         <a class="navbar-item" href="{% url "users:logout" %}">
                             <span class="icon is-size-6-desktop is-size-6-touch is-medium"><i
