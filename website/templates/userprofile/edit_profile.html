@@ -25,7 +25,7 @@
                     {% endif %}
                     <div class="box">
                         <h1 class="title">Bewerk Profiel</h1>
-                        <form method="post" action="{% url 'userprofile:profile-edit' pk=profile.id %}"
+                        <form method="post" action="{% url 'userprofile:profile-edit' %}"
                               enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="field">
