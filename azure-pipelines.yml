@@ -33,7 +33,7 @@ jobs:
   - job: docker
     displayName: 'Build & Push Job'
     dependsOn: lint
-    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     pool:
       vmImage: ubuntu-18.04
 
