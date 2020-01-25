@@ -33,6 +33,8 @@ SECRET_KEY = env('SECRET_KEY')
 if DEBUG:
     ALLOWED_HOSTS = [
         'minigigscyclingteam.local',
+        'www.minigigscyclingteam.nl',
+        'minigigscyclingteam.nl',
     ]
 else:
     ALLOWED_HOSTS = [
