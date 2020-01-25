@@ -14,6 +14,10 @@ class EditProfile(LoginRequiredMixin, UpdateView):
     template_name = 'userprofile/edit_profile.html'
     context_object_name = "profile"
 
+    def get_object(self, queryset=None):
+        """Get the profile for the currently logged-in user."""
+        return self.request.user.profile
+
     def form_valid(self, form):
         """Sets the user as the author."""
         form.is_valid()
