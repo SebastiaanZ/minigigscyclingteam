@@ -1,0 +1,67 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+    Bewerk artikel - {{ article.title }}
+{% endblock %}
+
+{% block content %}
+    {% include 'base/navigation.html' %}
+
+    <section class="section">
+        <div class="container is-spaced">
+            {% comment %}
+            {% include 'authors/top_progress_bar.html' with step=1 %}
+        {% endcomment %}
+            <div class="columns">
+                <div class="column is-7">
+                    {% if form.errors %}
+                        <div class="field">
+                            <div class="box is-warning has-text-warning">
+                                <i class="fas fa-exclamation-triangle"></i> Er is een probleem opgetreden bij het
+                                verwijderen van dit bericht.
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="box">
+                        <h1 class="title">{{ article.title }}</h1>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="box is-warning has-text-warning">
+                                <i class="fas fa-exclamation-triangle"></i> Weet je zeker dat je dit bericht wilt
+                                verwijderen?.
+                            </div>
+                            <div class="field">
+                                <input type="submit" value="Verwijder!" class="button is-danger is-fullwidth">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="column is-5">
+                    <div class="box">
+                        <h1 class="title is-5">
+                            Artikelgegevens
+                        </h1>
+                        <table class="table is-narrow is-hoverable">
+                            <tbody>
+                            <tr>
+                                <th>Auteur:</th>
+                                <td>{{ article.author }}</td>
+                            </tr>
+                            <tr>
+                                <th>Publicatiedatum:</th>
+                                <td>{{ article.pubdate }}</td>
+                            </tr>
+                            <tr>
+                                <th>Laatste bewerking:</th>
+                                <td>{{ article.last_edit }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

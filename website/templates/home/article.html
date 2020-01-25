@@ -29,7 +29,7 @@
                                     </p>
                                     <p class="subtitle is-7">
                                         <time datetime="{% now "Y-m-d" %}">
-                                            <i class="far fa-calendar"></i> {{ article.pubdate | date:"d F Y - H:i"}}
+                                            <i class="far fa-calendar"></i> {{ article.pubdate | date:"d F Y - H:i" }}
                                         </time>
                                     </p>
 
@@ -45,24 +45,29 @@
             <div class="container">
                 <div class="columns">
                     <div class="column is-size-3 is-offset-1">
-                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ "https://www.minigigscyclingteam.nl" | urlencode }}{{ request.path | urlencode }}" target="_blank">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=
+                                {{ "https://www.minigigscyclingteam.nl" | urlencode }}{{ request.path | urlencode }}"
+                           target="_blank">
                             <i class="fab fa-facebook"></i>
                         </a>
-                        <a href="https://twitter.com/home?status={{ "https://www.minigigscyclingteam.nl" | urlencode }}{{ request.path | urlencode }}" target="_blank">
+                        <a href="https://twitter.com/home?status=
+                                {{ "https://www.minigigscyclingteam.nl" | urlencode }}{{ request.path | urlencode }}"
+                           target="_blank">
                             <i class="fab fa-twitter"></i>
                         </a>
-                        <a href="mailto:info@example.com?&subject=&body={{ "https://www.minigigscyclingteam.nl" | urlencode }}{{ request.path | urlencode }}" target="_blank">
+                        <a href="mailto:info@example.com?&subject=&body=
+                                {{ "https://www.minigigscyclingteam.nl" | urlencode }}{{ request.path | urlencode }}"
+                           target="_blank">
                             <i class="fas fa-envelope"></i>
                         </a>
                     </div>
                 </div>
             </div>
         </div>
-
     </section>
     <div class="container is-hidden-tablet">
         <figure class="image">
-            <img src="{% static "images/photos/roemer_fiets.jpeg" %}" alt="Roemer" class="cover-image">
+            <img src="{{ article.image_url }}" alt="Cover Image" class="cover-image">
         </figure>
     </div>
     <article class="section">
@@ -70,12 +75,41 @@
             <div class="columns">
                 <div class="column is-offset-1-desktop is-5-desktop is-6-tablet is-offset-1-tablet">
                     {{ article.content | linebreaks }}
+
+                    {% if user.is_authenticated %}
+                        <div class="box is-hidden-tablet">
+                            <div class="buttons has-addons is-centered">
+                                <a href="{% url 'authors:article-update' pk=article.id %}"
+                                   class="button is-primary is-small">
+                                    Bewerk bericht
+                                </a>
+                                <a href="{% url 'authors:article-delete' pk=article.id %}"
+                                   class="button is-danger is-small">
+                                    Verwijder bericht
+                                </a>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="column is-4 is-hidden-mobile">
+                    {% if user.is_authenticated %}
+                        <div class="box">
+                            <div class="buttons has-addons is-centered">
+                                <a href="{% url 'authors:article-update' pk=article.id %}"
+                                   class="button is-primary is-small">
+                                    Bewerk bericht
+                                </a>
+                                <a href="{% url 'authors:article-delete' pk=article.id %}"
+                                   class="button is-danger is-small">
+                                    Verwijder bericht
+                                </a>
+                            </div>
+                        </div>
+                    {% endif %}
                     <div class="box">
                         <figure class="image">
                             <a class="is-primary is-large modal-button" data-target="modal-cover-image">
-                                <img src="{% static "images/photos/roemer_fiets.jpeg" %}" alt="Roemer" class="cover-image">
+                                <img src="{{ article.image_url }}" alt="Cover Image" class="cover-image">
                             </a>
                         </figure>
                     </div>
@@ -88,7 +122,7 @@
         <div class="modal-content">
             <div class="box">
                 <p class="image">
-                    <img src="{% static "images/photos/roemer_fiets.jpeg" %}" alt="Roemer" class="cover-image">
+                    <img src="{{ article.image_url }}" alt="Cover Image" class="cover-image">
                 </p>
             </div>
         </div>

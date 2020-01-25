@@ -4,101 +4,101 @@
 # https://aka.ms/yaml
 
 jobs:
-- job: lint
-  displayName: 'flake8 linting'
+  - job: lint
+    displayName: 'flake8 linting'
 
-  pool:
-    vmImage: 'Ubuntu 16.04'
+    pool:
+      vmImage: 'Ubuntu 16.04'
 
-  variables:
-    PIP_CACHE_DIR: ".cache/pip"
-    PIP_SRC: ".cache/src"
+    variables:
+      PIP_CACHE_DIR: ".cache/pip"
+      PIP_SRC: ".cache/src"
 
-  steps:
-  - task: UsePythonVersion@0
-    displayName: 'Set Python version'
-    inputs:
-      versionSpec: '3.7.x'
-      addToPath: true
+    steps:
+      - task: UsePythonVersion@0
+        displayName: 'Set Python version'
+        inputs:
+          versionSpec: '3.7.x'
+          addToPath: true
 
-  - script: python3 -m pip install setuptools
-    displayName: 'Install base dependencies'
+      - script: python3 -m pip install setuptools
+        displayName: 'Install base dependencies'
 
-  - script: python3 -m pip install pipenv && pipenv install --dev --system && python3 -m pip install flake8-formatter-junit-xml
-    displayName: 'Install Project Environment'
+      - script: python3 -m pip install pipenv && pipenv install --dev --system && python3 -m pip install flake8-formatter-junit-xml
+        displayName: 'Install Project Environment'
 
-  - script: python3 -m flake8 --format junit-xml --output-file test-lint.xml
-    displayName: 'Lint the project'
+      - script: python3 -m flake8 --format junit-xml --output-file test-lint.xml
+        displayName: 'Lint the project'
 
-  - task: PublishTestResults@2
-    condition: succeededOrFailed()
-    inputs:
-      testResultsFiles: '**/test-*.xml'
-      testRunTitle: 'Site-Django Lint Results'
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testResultsFiles: '**/test-*.xml'
+          testRunTitle: 'Site-Django Lint Results'
 
-- job: coverage_test
-  displayName: 'Coverage Unittests'
-  dependsOn: lint
-  pool:
-    vmImage: 'Ubuntu 16.04'
+  - job: coverage_test
+    displayName: 'Coverage Unittests'
+    dependsOn: lint
+    pool:
+      vmImage: 'Ubuntu 16.04'
 
-  steps:
-    - task: UsePythonVersion@0
-      inputs:
-        versionSpec: '3.7.x'
-        architecture: x64
+    steps:
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: '3.7.x'
+          architecture: x64
 
-    - script: |
-        curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-        sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-        sudo apt-get update -y
-        sudo apt-get install -y postgresql-11
-      displayName: 'Install PostgreSQL'
+      - script: |
+          curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+          sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+          sudo apt-get update -y
+          sudo apt-get install -y postgresql-11
+        displayName: 'Install PostgreSQL'
 
-    - script: |
-        echo "$USER_CREATE_COMMAND;" > pgscript.sql
-        echo "CREATE DATABASE minigigs OWNER minigigs;" >> pgscript.sql
-        sudo su postgres -c "psql < pgscript.sql"
-      env:
-        USER_CREATE_COMMAND: CREATE USER minigigs WITH PASSWORD 'minigigs' CREATEDB
-      displayName: 'Setup Database'
+      - script: |
+          echo "$USER_CREATE_COMMAND;" > pgscript.sql
+          echo "CREATE DATABASE minigigs OWNER minigigs;" >> pgscript.sql
+          sudo su postgres -c "psql < pgscript.sql"
+        env:
+          USER_CREATE_COMMAND: CREATE USER minigigs WITH PASSWORD 'minigigs' CREATEDB
+        displayName: 'Setup Database'
 
-    - script: python3 -m pip install pipenv && pipenv install --dev --system
-      displayName: 'Install Project Environment'
+      - script: python3 -m pip install pipenv && pipenv install --dev --system
+        displayName: 'Install Project Environment'
 
-    - script: |
-        python manage.py migrate
-        coverage run --branch manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --no-input
-      env:
-        CI: azure
-        DATABASE_URL: postgres://minigigs:minigigs@localhost/minigigs
-      displayName: 'Run Test'
+      - script: |
+          python manage.py migrate
+          coverage run --branch manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --no-input
+        env:
+          CI: azure
+          DATABASE_URL: postgres://minigigs:minigigs@localhost/minigigs
+        displayName: 'Run Test'
 
-    - script: coverage report
-      displayName: 'Show Coverage Results'
+      - script: coverage report
+        displayName: 'Show Coverage Results'
 
-    - task: PublishTestResults@2
-      inputs:
-        testResultsFiles: "**/TEST-*.xml"
-        testRunTitle: 'Coverage Test Results'
+      - task: PublishTestResults@2
+        inputs:
+          testResultsFiles: "**/TEST-*.xml"
+          testRunTitle: 'Coverage Test Results'
 
-- job: docker
-  displayName: 'Build & Push Job'
-  dependsOn: coverage_test
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
-  pool:
-    vmImage: ubuntu-16.04
+  - job: docker
+    displayName: 'Build & Push Job'
+    dependsOn: coverage_test
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    pool:
+      vmImage: ubuntu-16.04
 
-  steps:
-    - task: Docker@1
-      displayName: Login to Docker Hub
+    steps:
+      - task: Docker@1
+        displayName: Login to Docker Hub
 
-      inputs:
-        containerregistrytype: 'Container Registry'
-        dockerRegistryEndpoint: 'minigigscyclingteam-website'
-        command: 'login'
+        inputs:
+          containerregistrytype: 'Container Registry'
+          dockerRegistryEndpoint: 'minigigscyclingteam-website'
+          command: 'login'
 
-    - script: |
-        docker build -t minigigscyclingteam/website:latest -f docker/app/Dockerfile .
-        docker push minigigscyclingteam/website:latest
-      displayName: 'Build & Push Docker Image'
+      - script: |
+          docker build -t minigigscyclingteam/website:latest -f docker/app/Dockerfile .
+          docker push minigigscyclingteam/website:latest
+        displayName: 'Build & Push Docker Image'

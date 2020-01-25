@@ -13,27 +13,27 @@
 
     <title>Minigigs Cycling Team | {% block title %}Website{% endblock %}</title>
 
-      {% bulma %}
+    {% bulma %}
 
-      {# Font-awesome here is defined explicitly so that we can have Pro #}
-      <script src="https://kit.fontawesome.com/fe8fdab2df.js"></script>
+    {# Font-awesome here is defined explicitly so that we can have Pro #}
+    <script src="https://kit.fontawesome.com/fe8fdab2df.js"></script>
 
-      <link rel="stylesheet" href="{% static "css/base/base.css" %}">
-      {% block head %}{% endblock %}
+    <link rel="stylesheet" href="{% static "css/base/base.css" %}">
+    {% block head %}{% endblock %}
 
-      {% render_block "css" %}
+    {% render_block "css" %}
 </head>
 <body class="site">
-    <main class="site-content">
-      {% block content %}
+<main class="site-content">
+    {% block content %}
         {{ block.super }}
-      {% endblock %}
-    </main>
-
-    {% block site_footer %}
-
     {% endblock %}
-    <script src="{% static "js/main.js" %}"></script>
-    {% render_block "js" %}
+</main>
+
+{% block site_footer %}
+
+{% endblock %}
+<script src="{% static "js/main.js" %}"></script>
+{% render_block "js" %}
 </body>
 </html>

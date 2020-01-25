@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    Nieuw artikel
+    Bewerk artikel - {{ article.title }}
 {% endblock %}
 
 {% block content %}
@@ -10,19 +10,23 @@
 
     <section class="section">
         <div class="container is-spaced">
+            {% comment %}
             {% include 'authors/top_progress_bar.html' with step=1 %}
+        {% endcomment %}
             <div class="columns">
                 <div class="column is-7">
                     {% if form.errors %}
                         <div class="field">
                             <div class="box is-warning has-text-warning">
-                                  <i class="fas fa-exclamation-triangle"></i> Er is een probleem opgetreden bij het verwerken van dit bericht.
+                                <i class="fas fa-exclamation-triangle"></i> Er is een probleem opgetreden bij het
+                                verwerken van dit bericht.
                             </div>
                         </div>
                     {% endif %}
                     <div class="box">
-                        <h1 class="title">Nieuw artikel</h1>
-                        <form method="post" action="{% url 'authors:article-new' %}">
+                        <h1 class="title">Bewerk artikel</h1>
+                        <form method="post" action="{% url 'authors:article-update' pk=article.id %}"
+                              enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="field">
                                 <label class="label">
@@ -42,7 +46,7 @@
                             <div class="field">
                                 <label class="label">
                                     {{ form.content.label_tag }}
-                                     {% if form.content.errors %}
+                                    {% if form.content.errors %}
                                         {% for error in form.content.errors %}
                                             <p class="has-text-danger is-size-7">
                                                 <i class="fas fa-exclamation-triangle"></i> {{ error }}
@@ -55,7 +59,22 @@
                                 </div>
                             </div>
                             <div class="field">
-                                <input type="submit" value="Opslaan & Doorgaan" class="button is-primary is-fullwidth">
+                                <label class="label">
+                                    {{ form.cover_image.label_tag }}
+                                    {% if form.cover_image.errors %}
+                                        {% for error in form.cover_image.errors %}
+                                            <p class="has-text-danger is-size-7">
+                                                <i class="fas fa-exclamation-triangle"></i> {{ error }}
+                                            </p>
+                                        {% endfor %}
+                                    {% endif %}
+                                </label>
+                                <div class="control">
+                                    {{ form.cover_image }}
+                                </div>
+                            </div>
+                            <div class="field">
+                                <input type="submit" value="Artikel Bewerken" class="button is-primary is-fullwidth">
                             </div>
                         </form>
                     </div>
@@ -63,13 +82,24 @@
                 <div class="column is-5">
                     <div class="box">
                         <h1 class="title is-5">
-                            Gereserveerd voor toekomstige opties
+                            Artikelgegevens
                         </h1>
-                        <ul class="item-list">
-                            <li>Wedstrijden bijvoegen</li>
-                            <li>Renners bijvoegen</li>
-                            <li>Klassementen bijvoegen</li>
-                        </ul>
+                        <table class="table is-narrow is-hoverable">
+                            <tbody>
+                            <tr>
+                                <th>Auteur:</th>
+                                <td>{{ article.author }}</td>
+                            </tr>
+                            <tr>
+                                <th>Publicatiedatum:</th>
+                                <td>{{ article.pubdate }}</td>
+                            </tr>
+                            <tr>
+                                <th>Laatste bewerking:</th>
+                                <td>{{ article.last_edit }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
