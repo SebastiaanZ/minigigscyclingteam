@@ -58,7 +58,8 @@ class Article(models.Model):
     cover_image = models.ImageField(
         verbose_name="Artikelfoto",
         upload_to=cover_image_filename,
-        default="/static/images/photos/default_image.jpeg",
+        null=True,
+        blank=True,
     )
 
     def __str__(self):

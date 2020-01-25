@@ -19,7 +19,8 @@
                             <div class="card-image">
                                 <figure class="image">
                                     <a href="{{ article_url }}">
-                                        <img src="{{ article.image_url }}" alt="Cover Image" class="cover-image">
+                                        <img src="{{ article.image_url }}" alt="Cover Image"
+                                             class="frontpage-cover-image">
                                     </a>
                                 </figure>
                             </div>
@@ -30,8 +31,8 @@
                                 <div class="media">
                                     <div class="media-left">
                                         <figure class="image is-48x48">
-                                            <img src="{% static "images/photos/miranda_square.jpg" %}" alt="Roemer"
-                                                 class="is-rounded">
+                                            <img src="{{ article.author.profile.avatar_url }}" alt="Roemer"
+                                                 class="is-rounded profile-picture">
                                         </figure>
                                     </div>
                                     <div class="media-content">
@@ -57,6 +58,27 @@
                     {% endfor %}
                 </div>
                 <div class="column is-hidden-mobile">
+                    {% if user.is_authenticated %}
+                        <div class="box">
+                            <aside class="menu">
+                                <p class="menu-label">
+                                    Beheerdersmenu
+                                </p>
+                                <ul class="menu-list">
+                                    <li>
+                                        <a href="{% url 'authors:article-new' %}">
+                                            Nieuw bericht
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'userprofile:profile-edit' pk=user.id %}">
+                                            Bewerk profiel
+                                        </a>
+                                    </li>
+                                </ul>
+                            </aside>
+                        </div>
+                    {% endif %}
                     <div class="box">
                         <a href="http://minigigs.nl" target="_blank">
                             <img src="{% static "images/logos/minigigs_fc_with_subtitle.svg" %}" alt="Minigigs logo">

@@ -45,10 +45,11 @@ else:
 INSTALLED_APPS = [
     'website.home',
     'website.users',
+    'website.userprofile',
+    'website.widgets',
 
     # Plugins
     'django_simple_bulma',
-
     'sekizai',
     # Default apps
     'django.contrib.admin',
@@ -57,6 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.forms',
 ]
 
 MIDDLEWARE = [
@@ -166,3 +168,6 @@ BULMA_SETTINGS = {
 
 # Custom user model
 AUTH_USER_MODEL = "users.User"
+
+# Form Widget Templates
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'

@@ -2,12 +2,15 @@
 import django.forms
 
 from website.home.models import Article
+from website.widgets import ClearableImageInput
 
 
 class NewArticleForm(django.forms.ModelForm):
     """Form to create a new article."""
 
-    cover_image = django.forms.ImageField(required=False)
+    cover_image = django.forms.ImageField(
+        required=False, widget=ClearableImageInput, label="Artikelfoto"
+    )
 
     class Meta:
         """Meta-information for the ModelForm."""
@@ -19,7 +22,9 @@ class NewArticleForm(django.forms.ModelForm):
 class UpdateArticleForm(django.forms.ModelForm):
     """Form to edit an existing article."""
 
-    cover_image = django.forms.ImageField(required=False)
+    cover_image = django.forms.ImageField(
+        required=False, widget=ClearableImageInput, label="Artikelfoto"
+    )
 
     class Meta:
         """Meta-information about the ModelForm."""
