@@ -25,7 +25,7 @@
                             </article>
                         {% endfor %}
                     {% endif %}
-                    {% for article in articles %}
+                    {% for article in page_obj %}
                         {% url 'home:article' pk=article.pk slug=article.slug as article_url %}
                         <div class="card home-article">
                             <div class="card-image">
@@ -68,6 +68,27 @@
                             </footer>
                         </div>
                     {% endfor %}
+                    <nav class="pagination" role="navigation" aria-label="pagination">
+                        {% if page_obj.has_previous %}
+                            <a class="pagination-previous" href="?page={{ page_obj.previous_page_number }}">Vorige pagina</a>
+                        {% else %}
+                            <a class="pagination-previous" title="Dit is de eerste pagina" disabled>Vorige pagina</a>
+                        {% endif %}
+                        {% if page_obj.has_next %}
+                            <a class="pagination-next" href="?page={{ page_obj.next_page_number }}">Volgende pagina</a>
+                        {% else %}
+                            <a class="pagination-next" title="Dit is de laatste pagina" disabled>Volgende pagina</a>
+                        {% endif %}
+                        <ul class="pagination-list">
+                            <li>
+                                {% if page_obj.has_previous %}
+                                    <a href="?page=1" class="pagination-link" aria-label="Ga naar pagina 1">Ga naar eerste pagina</a>
+                                {% else %}
+                                    <a class="pagination-link" aria-label="Dit is pagina 1" disabled>Dit is de eerste pagina</a>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
                 <div class="column is-hidden-mobile">
                     {% if user.is_authenticated %}

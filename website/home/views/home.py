@@ -10,3 +10,4 @@ class Home(ListView):
     model = Article
     template_name = "home/home.html"
     context_object_name = 'articles'
+    paginate_by = 5
