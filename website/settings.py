@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'website.home',
     'website.users',
     'website.userprofile',
-    'website.widgets',
+    'website.utils.widgets',
 
     # Plugins
     'django_simple_bulma',
