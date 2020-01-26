@@ -2,7 +2,7 @@
 import django.forms
 
 from website.home.models import Article
-from website.widgets import ClearableImageInput
+from website.utils import ClearableImageInput
 
 
 class NewArticleForm(django.forms.ModelForm):
@@ -30,4 +30,4 @@ class UpdateArticleForm(django.forms.ModelForm):
         """Meta-information about the ModelForm."""
 
         model = Article
-        fields = ["title", "content", "cover_image"]
+        fields = ["title", "content", "cover_image", "pubdate"]

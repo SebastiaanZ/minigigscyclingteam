@@ -6,6 +6,8 @@ import re
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from website.utils import PublicationDateTimeField
+
 
 def cover_image_filename(instance: 'Article', filename: str) -> pathlib.Path:
     """Get a filename for the cover image."""
@@ -38,11 +40,11 @@ class Article(models.Model):
         verbose_name="Creation date",
         auto_now_add=True,
     )
-    pubdate = models.DateTimeField(
-        verbose_name="Publication date",
-        auto_now_add=True,
+    pubdate = PublicationDateTimeField(
+        verbose_name="Publicatiedatum",
         null=True,
     )
+
     last_edit = models.DateTimeField(
         verbose_name="Last edited",
         auto_now=True,

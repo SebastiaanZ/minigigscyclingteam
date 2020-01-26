@@ -13,96 +13,112 @@
             {% comment %}
             {% include 'authors/top_progress_bar.html' with step=1 %}
         {% endcomment %}
-            <div class="columns">
-                <div class="column is-7">
-                    {% if form.errors %}
-                        <div class="field">
-                            <div class="box is-warning has-text-warning">
-                                <i class="fas fa-exclamation-triangle"></i> Er is een probleem opgetreden bij het
-                                verwerken van dit bericht.
-                            </div>
-                        </div>
-                    {% endif %}
-                    <div class="box">
-                        <h1 class="title">Bewerk artikel</h1>
-                        <form method="post" action="{% url 'authors:article-update' pk=article.id %}"
+        <form method="post" action="{% url 'authors:article-update' pk=article.id %}"
                               enctype="multipart/form-data">
-                            {% csrf_token %}
+            <div class="columns">
+
+                    <div class="column is-7">
+                        {% if form.errors %}
                             <div class="field">
-                                <label class="label">
-                                    {{ form.title.label_tag }}
-                                    {% if form.title.errors %}
-                                        {% for error in form.title.errors %}
-                                            <p class="has-text-danger is-size-7">
-                                                <i class="fas fa-exclamation-triangle"></i> {{ error }}
-                                            </p>
-                                        {% endfor %}
-                                    {% endif %}
-                                </label>
-                                <div class="control">
-                                    {{ form.title }}
+                                <div class="box is-warning has-text-warning">
+                                    <i class="fas fa-exclamation-triangle"></i> Er is een probleem opgetreden bij het
+                                    verwerken van dit bericht.
                                 </div>
                             </div>
-                            <div class="field">
-                                <label class="label">
-                                    {{ form.content.label_tag }}
-                                    {% if form.content.errors %}
-                                        {% for error in form.content.errors %}
-                                            <p class="has-text-danger is-size-7">
-                                                <i class="fas fa-exclamation-triangle"></i> {{ error }}
-                                            </p>
-                                        {% endfor %}
-                                    {% endif %}
-                                </label>
-                                <div class="control">
-                                    {{ form.content }}
+                        {% endif %}
+                        <div class="box">
+                            <h1 class="title">Bewerk artikel</h1>
+
+                                {% csrf_token %}
+                                <div class="field">
+                                    <label class="label">
+                                        {{ form.title.label_tag }}
+                                        {% if form.title.errors %}
+                                            {% for error in form.title.errors %}
+                                                <p class="has-text-danger is-size-7">
+                                                    <i class="fas fa-exclamation-triangle"></i> {{ error }}
+                                                </p>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </label>
+                                    <div class="control">
+                                        {{ form.title }}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="field">
-                                <label class="label">
-                                    {{ form.cover_image.label_tag }}
-                                    {% if form.cover_image.errors %}
-                                        {% for error in form.cover_image.errors %}
-                                            <p class="has-text-danger is-size-7">
-                                                <i class="fas fa-exclamation-triangle"></i> {{ error }}
-                                            </p>
-                                        {% endfor %}
-                                    {% endif %}
-                                </label>
-                                <div class="control">
-                                    {{ form.cover_image }}
+                                <div class="field">
+                                    <label class="label">
+                                        {{ form.content.label_tag }}
+                                        {% if form.content.errors %}
+                                            {% for error in form.content.errors %}
+                                                <p class="has-text-danger is-size-7">
+                                                    <i class="fas fa-exclamation-triangle"></i> {{ error }}
+                                                </p>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </label>
+                                    <div class="control">
+                                        {{ form.content }}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="field">
-                                <input type="submit" value="Artikel Bewerken" class="button is-primary is-fullwidth">
-                            </div>
-                        </form>
+                                <div class="field">
+                                    <label class="label">
+                                        {{ form.cover_image.label_tag }}
+                                        {% if form.cover_image.errors %}
+                                            {% for error in form.cover_image.errors %}
+                                                <p class="has-text-danger is-size-7">
+                                                    <i class="fas fa-exclamation-triangle"></i> {{ error }}
+                                                </p>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </label>
+                                    <div class="control">
+                                        {{ form.cover_image }}
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <input type="submit" value="Artikel Bewerken" class="button is-primary is-fullwidth">
+                                </div>
+
+                        </div>
                     </div>
-                </div>
-                <div class="column is-5">
-                    <div class="box">
-                        <h1 class="title is-5">
-                            Artikelgegevens
-                        </h1>
-                        <table class="table is-narrow is-hoverable">
-                            <tbody>
-                            <tr>
-                                <th>Auteur:</th>
-                                <td>{{ article.author }}</td>
-                            </tr>
-                            <tr>
-                                <th>Publicatiedatum:</th>
-                                <td>{{ article.pubdate }}</td>
-                            </tr>
-                            <tr>
-                                <th>Laatste bewerking:</th>
-                                <td>{{ article.last_edit }}</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="column is-5">
+                        <div class="box">
+                            <h1 class="title is-5">
+                                Artikelgegevens
+                            </h1>
+                            <table class="table is-narrow is-hoverable">
+                                <tbody>
+                                <tr>
+                                    <th>Auteur:</th>
+                                    <td>{{ article.author }}</td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <label class="label">
+                                        {{ form.pubdate.label_tag }}
+                                        {% if form.pubdate.errors %}
+                                            {% for error in form.pubdate.errors %}
+                                                <p class="has-text-danger is-size-7">
+                                                    <i class="fas fa-exclamation-triangle"></i> {{ error }}
+                                                </p>
+                                            {% endfor %}
+                                        {% endif %}
+                                        </label>
+                                    </th>
+                                    <td><div class="control">
+                                        {{ form.pubdate }}
+                                    </div></td>
+                                </tr>
+                                <tr>
+                                    <th>Laatste bewerking:</th>
+                                    <td>{{ article.last_edit }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-            </div>
+
+            </div> </form>
         </div>
     </section>
 

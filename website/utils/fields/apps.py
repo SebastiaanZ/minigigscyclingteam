@@ -2,7 +2,7 @@
 from django.apps import AppConfig
 
 
-class WidgetsConfig(AppConfig):
+class FieldsConfig(AppConfig):
     """Config of the home app."""
 
-    name = 'website.widgets'
+    name = 'website.utils.fields'
