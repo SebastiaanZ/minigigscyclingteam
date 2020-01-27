@@ -32,21 +32,26 @@ class ResizedHashNameImageField(ImageField):
         """Prepares the image for saving by scaling it to the desired dimensions."""
         file = getattr(model_instance, self.attname)
         if file and not file._committed:
-            # Open the image with Pillow and resize it using the `thumbnail` method
-            im = ImageOps.exif_transpose(Image.open(file.file))
+            # Open the image with Pillow and save the original format attribute
+            im = Image.open(file.file)
+            im_format = im.format
+
+            # If the image contains exif rotation data, rotate it accordingly
+            im = ImageOps.exif_transpose(im)
+
+            # Rescale the image, if necessary
             im.thumbnail((self.max_width, self.max_height), resample=Image.LANCZOS)
 
             # Save it to an in-memory file
             temp = io.BytesIO()
-            im.save(temp, format="JPEG", quality=75)
+            im.save(temp, format=im_format, quality=75)
 
             # Hash the contents for a filename
-            filename = f"{hashlib.md5(temp.getvalue()).hexdigest()}.jpg"
+            filename = f"{hashlib.md5(temp.getvalue()).hexdigest()}.{im_format}"
 
             # Create a new InMemoryUploadedFile
-            temp.seek(0)
             new_file = InMemoryUploadedFile(
-                temp, self.name, filename, 'image/jpeg', sys.getsizeof(temp), None
+                temp, self.name, filename, f'image/{im_format.lower()}', sys.getsizeof(temp), None
             )
 
             # Reassign the `file` and `name` attributes
