@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             model_name='article',
             name='cover_image',
             field=models.ImageField(null=True,
-                                    upload_to=website.home.models.article.cover_image_filename,
+                                    upload_to="covers",
                                     verbose_name='Artikelfoto'),
         ),
     ]

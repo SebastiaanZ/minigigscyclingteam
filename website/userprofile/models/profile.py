@@ -1,18 +1,7 @@
-import hashlib
-import pathlib
-
 from django.contrib.auth import get_user_model
 from django.db import models
 
-
-def profile_picture_filename(instance: 'Profile', filename: str) -> pathlib.Path:
-    """Get a filename for the cover image."""
-    image = instance.profile_picture.open("rb")
-
-    base = hashlib.md5(image.read()).hexdigest()
-    extension = pathlib.Path(filename).suffix
-
-    return pathlib.Path("avatars") / f"{base}{extension}"
+from website.utils import ResizedHashNameImageField
 
 
 class Profile(models.Model):
@@ -28,9 +17,9 @@ class Profile(models.Model):
         default=False,
     )
 
-    profile_picture = models.ImageField(
+    profile_picture = ResizedHashNameImageField(
         verbose_name="Profielfoto",
-        upload_to=profile_picture_filename,
+        upload_to="avatars",
         null=True,
         blank=True,
     )

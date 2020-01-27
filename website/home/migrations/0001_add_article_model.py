@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                                                      verbose_name='Has this article been published?')),
                 (
                 'cover_image', models.ImageField(default='/static/images/photos/default_image.jpeg',
-                                                 upload_to=website.home.models.article.cover_image_filename,
+                                                 upload_to="covers",
                                                  verbose_name='Artikelfoto')),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT,
                                              to=settings.AUTH_USER_MODEL)),
