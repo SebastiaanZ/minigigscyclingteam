@@ -6,8 +6,6 @@ import website.utils.fields.publication_date_field
 
 class Migration(migrations.Migration):
 
-    replaces = [('home', '0004_use_custom_publication_datetime_field'), ('home', '0005_use_custom_publication_datetime_field_name')]
-
     dependencies = [
         ('home', '0003_allow_empty_cover_image'),
     ]

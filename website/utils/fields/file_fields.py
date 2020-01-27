@@ -3,17 +3,20 @@ import io
 import sys
 from typing import Optional
 
+from PIL import Image, ImageOps
+
 from django.core import checks
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models import ImageField
-from PIL import Image, ImageOps
 
 
 class ResizedHashNameImageField(ImageField):
+    """A custom ImageField class that will resize the images and uses the file hash as filename."""
+
     def __init__(
         self,
-        verbose_name: Optional[str]  = None,
-        name: Optional[str]  = None,
+        verbose_name: Optional[str] = None,
+        name: Optional[str] = None,
         max_width: int = 1620,
         max_height: int = 1620,
         width_field: Optional[str] = None,
@@ -43,7 +46,7 @@ class ResizedHashNameImageField(ImageField):
             # Create a new InMemoryUploadedFile
             temp.seek(0)
             new_file = InMemoryUploadedFile(
-                temp, self.name, filename, 'image/jpeg',  sys.getsizeof(temp), None
+                temp, self.name, filename, 'image/jpeg', sys.getsizeof(temp), None
             )
 
             # Reassign the `file` and `name` attributes
@@ -55,6 +58,7 @@ class ResizedHashNameImageField(ImageField):
         return file
 
     def check(self, **kwargs):
+        """Check maximum dimension values for integrity."""
         return [
             *super().check(**kwargs),
             *self._check_maximum_dimension_values(),

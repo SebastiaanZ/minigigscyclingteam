@@ -1,22 +1,10 @@
 """Django database models for news articles."""
-import hashlib
-import pathlib
 import re
 
 from django.contrib.auth import get_user_model
 from django.db import models
 
-from website.utils import PublicationDateTimeField
-
-
-def cover_image_filename(instance: 'Article', filename: str) -> pathlib.Path:
-    """Get a filename for the cover image."""
-    image = instance.cover_image.open("rb")
-
-    base = hashlib.md5(image.read()).hexdigest()
-    extension = pathlib.Path(filename).suffix
-
-    return pathlib.Path("covers") / f"{base}{extension}"
+from website.utils import PublicationDateTimeField, ResizedHashNameImageField
 
 
 class Article(models.Model):
@@ -57,9 +45,9 @@ class Article(models.Model):
     )
 
     # Add cover image field
-    cover_image = models.ImageField(
+    cover_image = ResizedHashNameImageField(
         verbose_name="Artikelfoto",
-        upload_to=cover_image_filename,
+        upload_to="covers",
         null=True,
         blank=True,
     )

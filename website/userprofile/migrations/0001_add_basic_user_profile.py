@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                  models.BooleanField(default=False, verbose_name='Is this a member of team?')),
                 ('profile_picture',
                  models.ImageField(null=True,
-                                   upload_to=website.userprofile.models.profile.profile_picture_filename,
+                                   upload_to="",
                                    verbose_name='Profielfoto')),
                 (
                     'user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE,
