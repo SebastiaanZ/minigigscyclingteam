@@ -2,7 +2,7 @@
 import django.forms
 
 from website.userprofile.models import Profile
-from website.utils.widgets import ClearableImageInput
+from website.utils.form import ClearableImageInput
 
 
 class EditProfileForm(django.forms.ModelForm):

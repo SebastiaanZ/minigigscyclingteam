@@ -3,8 +3,8 @@
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
-import website.utils.fields.file_fields
-import website.utils.fields.publication_date_field
+import website.utils.db_fields.file_fields
+import website.utils.db_fields.publication_date_field
 
 
 class Migration(migrations.Migration):
@@ -25,10 +25,10 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=256, verbose_name='Titel')),
                 ('content', models.TextField(verbose_name='Inhoud')),
                 ('creation_date', models.DateTimeField(auto_now_add=True, verbose_name='Creation date')),
-                ('pubdate', website.utils.fields.publication_date_field.PublicationDateTimeField(null=True, verbose_name='Publicatiedatum')),
+                ('pubdate', website.utils.db_fields.publication_date_field.PublicationDateTimeField(null=True, verbose_name='Publicatiedatum')),
                 ('last_edit', models.DateTimeField(auto_now=True, verbose_name='Last edited')),
                 ('is_published', models.BooleanField(default=True, verbose_name='Has this article been published?')),
-                ('cover_image', website.utils.fields.file_fields.ResizedHashNameImageField(blank=True, null=True, upload_to='covers', verbose_name='Artikelfoto')),
+                ('cover_image', website.utils.db_fields.file_fields.ResizedHashNameImageField(blank=True, null=True, upload_to='covers', verbose_name='Artikelfoto')),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL)),
             ],
             options={

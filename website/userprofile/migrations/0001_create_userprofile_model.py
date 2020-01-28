@@ -3,7 +3,7 @@
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
-import website.utils.fields.file_fields
+import website.utils.db_fields.file_fields
 
 
 class Migration(migrations.Migration):
@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('is_cyclist', models.BooleanField(default=False, verbose_name='Is this a member of team?')),
-                ('profile_picture', website.utils.fields.file_fields.ResizedHashNameImageField(blank=True, null=True, upload_to='', verbose_name='Profielfoto')),
+                ('profile_picture', website.utils.db_fields.file_fields.ResizedHashNameImageField(blank=True, null=True, upload_to='', verbose_name='Profielfoto')),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

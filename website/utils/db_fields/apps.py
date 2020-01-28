@@ -5,4 +5,4 @@ from django.apps import AppConfig
 class FieldsConfig(AppConfig):
     """Config of the home app."""
 
-    name = 'website.utils.fields'
+    name = 'website.utils.db_fields'
