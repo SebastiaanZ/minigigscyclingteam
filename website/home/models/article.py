@@ -4,6 +4,7 @@ import re
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from website.photos.models import Photo
 from website.utils import PublicationDateTimeField, ResizedHashNameImageField
 
 
@@ -50,6 +51,11 @@ class Article(models.Model):
         upload_to="covers",
         null=True,
         blank=True,
+    )
+
+    photos = models.ManyToManyField(
+        Photo,
+        related_name="articles",
     )
 
     def __str__(self):

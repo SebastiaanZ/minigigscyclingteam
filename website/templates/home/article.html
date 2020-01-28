@@ -15,7 +15,7 @@
                         <h1 class="title is-size-4-mobile has-small-margin">
                             {{ article.title }}
                         </h1>
-                        <h2 class="title">
+                        <div class="title">
                             <div class="media">
                                 <div class="media-left">
                                     <figure class="image is-48x48">
@@ -36,7 +36,7 @@
                                 </div>
 
                             </div>
-                        </h2>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -70,7 +70,8 @@
     <article class="section">
         <div class="container is-spaced">
             <div class="columns">
-                <div class="column is-offset-1-desktop is-5-desktop is-6-tablet is-offset-1-tablet">
+                <div class="column is-offset-1-desktop is-6-desktop is-6-tablet is-offset-1-tablet">
+                    {% include 'base/messages.html' %}
                     {{ article.content | linebreaks }}
 
                     {% if user.is_authenticated %}
@@ -87,25 +88,81 @@
                             </div>
                         </div>
                     {% endif %}
+                    <div class="is-divider"></div>
+                    {% for photo in article.photos.all %}
+                        {% if forloop.first %}
+                            <h2 class="title is-5">Foto's</h2>
+                        {% endif %}
+                        {%  if forloop.counter0|divisibleby:3 %}
+                             <div class="tile is-ancestor">
+                        {% endif %}
+                            <div class="tile is-parent is-4">
+                                <article class="tile is-child">
+                                    <a id="gallery-image-{{ forloop.counter }}" class="is-primary is-large modal-button" data-target="modal-image-popup" data-url="{{ photo.image.url }}" data-order="{{ forloop.counter }}">
+                                    <div class="box image-gallery-box">
+                                        <figure class="image is-4by3">
+
+                                                <img src="{{ photo.image.url }}" class="image-gallery" alt="Photo Gallery Image">
+
+                                        </figure>
+                                    </div>
+                                    </a>
+                                </article>
+                            </div>
+                        {% if forloop.last or forloop.counter|divisibleby:3 %}
+                            </div>
+                        {% endif %}
+                    {% empty %}
+                        {% if user.is_authenticated %}
+                            <p class="field has-text-weight-semibold">Dit bericht heeft nog geen foto's.</p>
+                            <a href="{% url 'photos:article-add' pk=article.id %}"
+                               class="button is-primary">
+                                Foto's toevoegen
+                            </a>
+                        {% else %}
+
+                        {% endif %}
+                    {% endfor %}
                 </div>
                 <div class="column is-4 is-hidden-mobile">
                     {% if user.is_authenticated %}
                         <div class="box">
-                            <div class="buttons has-addons is-centered">
-                                <a href="{% url 'authors:article-update' pk=article.id %}"
-                                   class="button is-primary is-small">
-                                    Bewerk bericht
-                                </a>
-                                <a href="{% url 'authors:article-delete' pk=article.id %}"
-                                   class="button is-danger is-small">
-                                    Verwijder bericht
-                                </a>
-                            </div>
+                            <aside class="menu">
+                                <p class="menu-label">
+                                    Auteursmenu
+                                </p>
+                                <ul class="menu-list">
+                                    <li>
+                                        <a href="{% url 'authors:article-update' pk=article.id %}"
+                                           class="is-primary">
+                                            Bewerk bericht
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'photos:article-add' pk=article.id %}"
+                                           class="is-primary">
+                                            Voeg foto's toe
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'photos:article-remove' pk=article.id %}"
+                                           class="is-primary">
+                                            Verwijder foto's
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'authors:article-delete' pk=article.id %}"
+                                           class="has-text-danger">
+                                            Verwijder bericht
+                                        </a>
+                                    </li>
+                                </ul>
+                            </aside>
                         </div>
                     {% endif %}
                     <div class="box">
                         <figure class="image">
-                            <a class="is-primary is-large modal-button" data-target="modal-cover-image">
+                            <a class="is-primary is-large modal-button" data-target="modal-image-popup" data-url="{{ article.image_url }}">
                                 <img src="{{ article.image_url }}" alt="Cover Image" class="cover-image">
                             </a>
                         </figure>
@@ -114,16 +171,5 @@
             </div>
         </div>
     </article>
-    <div id="modal-cover-image" class="modal">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-            <div class="box">
-                <p class="image">
-                    <img src="{{ article.image_url }}" alt="Cover Image" class="cover-image">
-                </p>
-            </div>
-        </div>
-        <button class="modal-close is-large" aria-label="close"></button>
-    </div>
 
 {% endblock %}

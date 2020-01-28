@@ -11,8 +11,8 @@ a img.cover-image:hover, a i:hover {
 }
 
 article p {
-    font-size: 1rem;
-    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
     line-height: 1.7;
 }
 
@@ -75,4 +75,77 @@ ul.item-list {
 
 table.edit-article th {
     min-width: 30%;
+}
+
+.image img.image-gallery {
+    object-fit: cover;
+}
+
+.box.image-gallery-box {
+    padding: .75rem;
+}
+
+.custom-modal-content {
+	margin: 0 auto;
+	max-height: calc(100vh - 40px);
+    max-width: calc(100vw - 40px);
+	overflow: auto;
+	position: relative;
+}
+
+img.modal-image {
+    max-height: calc(100vh - 80px);
+    max-width: calc(100vw - 40px);
+    object-fit: cover;
+}
+
+.gallery-button {
+    display: none;
+}
+
+.gallery-button.next-image, .gallery-button.previous-image {
+	height: 48px;
+	max-height: 48px;
+	min-height: 48px;
+    width: 128px;
+	max-width: 128px;
+	min-width: 128px;
+    position: fixed;
+    bottom: 10px;
+    border-radius: 10000px;
+    font-size: 18px;
+}
+
+.gallery-button.next-image {
+    right: calc(50vw - 144px);
+}
+
+.gallery-button.previous-image {
+    left: calc(50vw - 144px);
+}
+
+.gallery-button.is-active {
+    display: flex;
+}
+
+.image-gallery-box:hover {
+	filter: drop-shadow(0px 0px 2px black);
+}
+
+table.table td, th {
+    vertical-align: middle;
+}
+
+table td.last-column, th.last-column {
+    text-align: center;
+    vertical-align: middle;
+}
+
+table td.first-column, th.first-column {
+    width: 256px;
+
+}
+
+div.image-removal-box {
+    width: 256px;
 }

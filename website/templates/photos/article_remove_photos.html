@@ -1,0 +1,97 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+    Foto's toevoegen - {{ article.title }}
+{% endblock %}
+
+{% block content %}
+    {% include 'base/navigation.html' %}
+
+        <section class="section">
+            <div class="container is-spaced">
+                <div class="columns">
+                    <div class="column is-10">
+                        {% if form.errors %}
+                            <div class="field">
+                                <div class="box is-warning has-text-warning">
+                                    <i class="fas fa-exclamation-triangle"></i> Er is een probleem opgetreden bij het verwerken van de foto's.
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="box">
+                            <h1 class="title is-4">Foto's verwijderen uit "{{ article.title }}"</h1>
+                            <p class="field is-size-7">
+                                Let op: De foto's worden verwijderd uit het fotoalbum van het artikel, maar niet van de server. In theorie kunnen meerdere berichten
+                                en pagina's dezelfde foto's gebruiken. Foto's zonder "ouders" worden in de toekomst automatisch verwijderd.
+                            </p>
+                            {% for field in form %}
+                                {% if forloop.first %}
+                                    <form method="post" action="{% url 'photos:article-remove' pk=article.pk %}">
+                                        {% csrf_token %}
+                                    <div class="table-container">
+                                        <table class="table is-fullwidth photo-removal">
+                                            <thead>
+                                                <tr>
+                                                    <th class="first-column">Foto</th>
+                                                    <th>Metadata</th>
+                                                    <th class="last-column">Verwijderen?</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                {% endif %}
+                                <tr>
+                                    <th class="first-column">
+                                        <a class="is-primary is-large modal-button" data-target="modal-image-popup" data-url="{{ field.label }}">
+                                            <div class="box image-removal-box image-gallery-box">
+                                                <figure class="image is-4by3 removal-candidate">
+                                                    <img src="{{ field.label }}" class="image-gallery" alt="Candidate for removal">
+                                                </figure>
+                                            </div>
+                                        </a>
+                                    </th>
+                                    <td>
+                                        <table class="table is-fullwidth">
+                                        <tr>
+                                            <th>Uploaddatum:</th>
+                                            <td>{{ field.field.creation_date }}</td>
+                                        </tr>
+                                        <tr class="field">
+                                            <th>Door:</th>
+                                            <td>{{ field.field.creator }}</td>
+                                        </tr>
+                                        <tr class="field">
+                                            <th>Gebruikt door:</th>
+                                            <td>{{ field.field.n_articles }} {{field.field.n_articles|pluralize:"artikel,artikelen"}}</td>
+                                        </tr>
+                                        </table>
+                                    </td>
+                                    <td class="last-column">
+                                       <label class="checkbox">
+                                          {{ field }}
+                                        </label>
+                                    </td>
+                                </tr>
+                                {% if forloop.last %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                        <div class="buttons field is-centered">
+                                            <input type="submit" value="Foto's verwijderen" class="button is-danger">
+                                        </div>
+                                    </form>
+                                {% endif %}
+                            {% empty %}
+                                <p class="field">
+                                    Dit bericht heeft geen foto's.
+                                </p>
+                                <p class="field">
+                                    <a href="{% url 'home:article' pk=article.pk slug=article.slug %}" class="button is-primary">Terug naar het bericht</a>
+                                </p>
+                            {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+{%  endblock %}

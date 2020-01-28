@@ -32,6 +32,20 @@
 
 {% block site_footer %}
 
+<div id="modal-image-popup" class="modal">
+    <div class="modal-background"></div>
+    <div class="custom-modal-content">
+        <div class="box">
+            <p class="image">
+                <img src="" id="modal-img" alt="Pop-up Image Holder" class="modal-image">
+            </p>
+        </div>
+    </div>
+    <button class="modal-close is-large has-background-danger" aria-label="close"></button>
+    <button id="gallery-previous" class="button is-primary is-large gallery-button previous-image" aria-label="previous" data-target="modal-image-popup">Vorige</button>
+    <button id="gallery-next" class="button is-primary is-large gallery-button next-image" aria-label="next" data-target="modal-image-popup">Volgende</button>
+</div>
+
 {% endblock %}
 <script src="{% static "js/main.js" %}"></script>
 {% render_block "js" %}
