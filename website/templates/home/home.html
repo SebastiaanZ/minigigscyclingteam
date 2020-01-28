@@ -13,18 +13,7 @@
         <div class="container is-spaced">
             <div class="columns is-variable">
                 <div class="column is-8">
-                    {% if messages %}
-                        {% for message in messages %}
-                            <article class="message is-info">
-                              <div class="message-header">
-                                  {{ message.extra_tags }}
-                              </div>
-                               <div class="message-body">
-                                {{ message }}
-                              </div>
-                            </article>
-                        {% endfor %}
-                    {% endif %}
+                    {% include 'base/messages.html' %}
                     {% for article in page_obj %}
                         {% url 'home:article' pk=article.pk slug=article.slug as article_url %}
                         <div class="card home-article">

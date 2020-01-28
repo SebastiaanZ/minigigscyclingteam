@@ -46,6 +46,7 @@ else:
 
 INSTALLED_APPS = [
     'website.home',
+    'website.photos',
     'website.users',
     'website.userprofile',
     'website.utils.form',

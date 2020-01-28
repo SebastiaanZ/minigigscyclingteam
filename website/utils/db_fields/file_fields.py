@@ -4,7 +4,6 @@ import sys
 from typing import Optional
 
 from PIL import Image, ImageOps
-
 from django.core import checks
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models import ImageField

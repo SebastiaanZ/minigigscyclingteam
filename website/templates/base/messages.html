@@ -1,0 +1,12 @@
+{% if messages %}
+    {% for message in messages %}
+        <article class="message is-info">
+          <div class="message-header">
+              {{ message.extra_tags }}
+          </div>
+           <div class="message-body">
+            {{ message }}
+          </div>
+        </article>
+    {% endfor %}
+{% endif %}
